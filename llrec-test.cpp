@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 #include <fstream>
 #include <functional>
 #include "llrec.h"
@@ -84,9 +84,21 @@ int main(int argc, char* argv[])
     Node* head = readList(argv[1]);
     cout << "Original list: ";
     print(head);
+		Node* smaller = new Node(0, nullptr);
+		Node* larger = new Node(0, nullptr);
 
+		llpivot(head, smaller, larger, 5);
+
+		cout << "Smaller: ";
+		print(smaller);
+		cout << "\nLarger: ";
+		print(larger);
+    Comp pred;
     // Test out your linked list code
+    cout << "\nModified list: ";
+    print(llfilter(head, pred));
 
+		
 
 
     
