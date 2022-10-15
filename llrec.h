@@ -82,7 +82,35 @@ Node* llfilter(Node* head, Comp pred)
     // Provide your implementation below
     //*********************************************
 
+		//check if list is empty
+		if (head == NULL) return NULL;
 
+		//check if the list has one element
+		else if (head->next == NULL) {
+			if (pred(head->val) == true) return NULL;
+			else return head;
+		}
+
+		//check if item is to be filtered then deallocate node
+		//then recursive call on next element
+		else if (pred(head->val) == true) {
+			Node* temp = head;
+			head = head->next;
+			delete temp;
+			return llfilter(head, pred);
+		}
+
+		//if item is not to be filtered, call recursively on next element
+		else if (pred(head->val) == false) {
+			head->next = llfilter(head->next,pred);
+			return head;
+		}
 }
+
+//prototype of functor
+class Comp {
+	public:
+	bool operator()(int x);
+};
 
 #endif

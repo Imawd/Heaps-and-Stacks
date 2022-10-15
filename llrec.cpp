@@ -6,26 +6,41 @@
 
 void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot) {
 	if (head == NULL) {
+		//returns both lists as empty
 		smaller = NULL;
 		larger = NULL;
 		return;
 	}
 
 	else {
+		//if value of item is smaller than or equal to pivot
+		//add it to smaller LL and recursive call the next element in the list
 		if (head->val <=  pivot) {
-			smaller = head;
-			llpivot(head->next, smaller->next, larger, pivot);
+			if (smaller == NULL) smaller = new Node(head->val, nullptr);
+			else smaller->val = head->val;
+			Node* temp = head;
+			head = head->next;
+			delete temp;
+			llpivot(head, smaller->next, larger, pivot);
 		}
+		//if value of item is larger than pivot
+		//add to larger list and recursive call rest of elements
 		else if (head->val > pivot) {
-			larger = head;
-			llpivot(head->next, smaller, larger->next, pivot);
+			if (larger == NULL) larger = new Node(head->val, nullptr);
+			else larger->val = head->val;
+			Node* temp = head;
+			head = head->next;
+			delete temp;
+			llpivot(head, smaller, larger->next, pivot);
 		}
 	}
 }
 
+//operator () returns true if odd (i.e. returns true if it is to be filtered)
 bool Comp::operator()(int x) {
-	if (x % 2 == 0) return false;
-	else return true;
+	//is this element supposed to be filtered?
+	if (x % 2 == 0) return false; //no
+	else return true; //yes
 }
 
 
