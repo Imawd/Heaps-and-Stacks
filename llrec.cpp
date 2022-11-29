@@ -16,21 +16,15 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot) {
 		//if value of item is smaller than or equal to pivot
 		//add it to smaller LL and recursive call the next element in the list
 		if (head->val <=  pivot) {
-			if (smaller == NULL) smaller = new Node(head->val, nullptr);
-			else smaller->val = head->val;
-			Node* temp = head;
+			smaller = head;
 			head = head->next;
-			delete temp;
 			llpivot(head, smaller->next, larger, pivot);
 		}
 		//if value of item is larger than pivot
 		//add to larger list and recursive call rest of elements
 		else if (head->val > pivot) {
-			if (larger == NULL) larger = new Node(head->val, nullptr);
-			else larger->val = head->val;
-			Node* temp = head;
+			larger = head;
 			head = head->next;
-			delete temp;
 			llpivot(head, smaller, larger->next, pivot);
 		}
 	}
